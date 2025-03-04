@@ -1,0 +1,129 @@
+PS D:\devops_quiz-main> terraform apply -auto-approve
+
+Terraform used the selected providers to generate the following execution plan.        
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # docker_container.my_container will be created
+  + resource "docker_container" "my_container" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = (known after apply)
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = (known after apply)
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = "node"
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + must_run                                    = true
+      + name                                        = "my-express-app"
+      + network_data                                = (known after apply)
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "no"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck (known after apply)
+
+      + labels (known after apply)
+
+      + ports {
+          + external = 3000
+          + internal = 3000
+          + ip       = "0.0.0.0"
+          + protocol = "tcp"
+        }
+    }
+
+  # docker_image.my_app will be created
+  + resource "docker_image" "my_app" {
+      + id          = (known after apply)
+      + image_id    = (known after apply)
+      + name        = "node"
+      + repo_digest = (known after apply)
+    }
+
+  # null_resource.build_docker_image will be created
+  + resource "null_resource" "build_docker_image" {
+      + id = (known after apply)
+    }
+
+Plan: 3 to add, 0 to change, 0 to destroy.
+null_resource.build_docker_image: Creating...
+null_resource.build_docker_image: Provisioning with 'local-exec'...
+null_resource.build_docker_image (local-exec): Executing: ["cmd" "/C" "docker build -t node -f Dockerfile ."]
+null_resource.build_docker_image (local-exec): #0 building with "desktop-linux" instance using docker driver
+
+null_resource.build_docker_image (local-exec): #1 [internal] load build definition from Dockerfile
+null_resource.build_docker_image (local-exec): #1 transferring dockerfile: 485B done   
+null_resource.build_docker_image (local-exec): #1 DONE 0.0s
+
+null_resource.build_docker_image (local-exec): #2 [internal] load metadata for docker.io/library/node:18-alpine
+null_resource.build_docker_image (local-exec): #2 DONE 0.0s
+
+null_resource.build_docker_image (local-exec): #3 [internal] load .dockerignore        
+null_resource.build_docker_image (local-exec): #3 transferring context: 107B done      
+null_resource.build_docker_image (local-exec): #3 DONE 0.0s
+
+null_resource.build_docker_image (local-exec): #4 [internal] load build context        
+null_resource.build_docker_image (local-exec): #4 transferring context: 311B done      
+null_resource.build_docker_image (local-exec): #4 DONE 0.0s
+
+null_resource.build_docker_image (local-exec): #5 [1/5] FROM docker.io/library/node:18-alpine@sha256:e0340f26173b41066d68e3fe9bfbdb6571ab3cad0a4272919a52e36f4ae56925
+null_resource.build_docker_image (local-exec): #5 resolve docker.io/library/node:18-alpine@sha256:e0340f26173b41066d68e3fe9bfbdb6571ab3cad0a4272919a52e36f4ae56925
+null_resource.build_docker_image (local-exec): #5 ...
+
+null_resource.build_docker_image (local-exec): #6 [auth] library/node:pull token for registry-1.docker.io
+null_resource.build_docker_image (local-exec): #6 DONE 0.0s
+
+null_resource.build_docker_image (local-exec): #5 [1/5] FROM docker.io/library/node:18-alpine@sha256:e0340f26173b41066d68e3fe9bfbdb6571ab3cad0a4272919a52e36f4ae56925
+null_resource.build_docker_image (local-exec): #5 resolve docker.io/library/node:18-alpine@sha256:e0340f26173b41066d68e3fe9bfbdb6571ab3cad0a4272919a52e36f4ae56925 2.1s done  
+null_resource.build_docker_image (local-exec): #5 DONE 2.1s
+
+null_resource.build_docker_image (local-exec): #7 [2/5] WORKDIR /app
+null_resource.build_docker_image (local-exec): #7 CACHED
+
+null_resource.build_docker_image (local-exec): #8 [3/5] COPY package.json package-lock.json ./
+null_resource.build_docker_image (local-exec): #8 CACHED
+
+null_resource.build_docker_image (local-exec): #9 [4/5] RUN npm install
+null_resource.build_docker_image (local-exec): #9 CACHED
+
+null_resource.build_docker_image (local-exec): #10 [5/5] COPY . .
+null_resource.build_docker_image (local-exec): #10 DONE 0.0s
+
+null_resource.build_docker_image (local-exec): #11 exporting to image
+null_resource.build_docker_image (local-exec): #11 exporting layers 0.1s done
+null_resource.build_docker_image (local-exec): #11 exporting manifest sha256:4c31f04a93e49f3aa8ac0a7fd1bf1ead98587071fbade767360184d15c28fdf8 0.0s done
+null_resource.build_docker_image (local-exec): #11 exporting config sha256:eb8719e5c476c1463763413758b580656a4b7fab0d8d303e04db8aea0c150b16 0.0s done
+null_resource.build_docker_image (local-exec): #11 exporting attestation manifest sha256:ec6c36d2ba73673b4f4a1c1376cfebe236d26430b9972e4c3b8e9799b0a018aa 0.0s done
+null_resource.build_docker_image (local-exec): #11 exporting manifest list sha256:f68aa225e4e2470411e5fd4a0f423e81a08df0393ce4f3d3645ce32a63b71699 0.0s done
+null_resource.build_docker_image (local-exec): #11 naming to docker.io/library/node:latest done
+null_resource.build_docker_image (local-exec): #11 unpacking to docker.io/library/node:latest
+null_resource.build_docker_image (local-exec): #11 unpacking to docker.io/library/node:latest 0.4s done
+null_resource.build_docker_image (local-exec): #11 DONE 0.6s
+null_resource.build_docker_image: Creation complete after 5s [id=6350245665985721488]
+docker_image.my_app: Creating...
+docker_image.my_app: Creation complete after 0s [id=sha256:f68aa225e4e2470411e5fd4a0f423e81a08df0393ce4f3d3645ce32a63b71699node]
+docker_container.my_container: Creating...
+docker_container.my_container: Creation complete after 1s [id=1f582d6fb7a73393694da34ff9c2bf4955dfb85bbdf8e3829a666c516a529083]
+
+Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
